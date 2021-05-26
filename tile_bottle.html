@@ -1,0 +1,116 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Not Wrong Studios</title>
+    <meta name="description" content="Not Wrong Studios">
+    <meta name="Not Wrong Studios" content="Grand Rapids, MI">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/custom_styles.css">
+    <link rel="stylesheet" href="css/tilebottle.css">
+    <!--CDN link for  TweenMax-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
+    <!--CDN links for TweenLite, CSSPlugin, and EasePack-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/plugins/CSSPlugin.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/easing/EasePack.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenLite.min.js"></script>
+
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div id="moon" class="moon"></div>
+    <div class="row">
+      <div>
+        <a>
+          <figure>
+            <img src="./imgs/bottle.gif" alt="">
+            <figcaption>
+            </figcaption>
+          </figure>
+        </a>
+        <a>
+          <figure>
+            <img src="./imgs/bottle.gif" alt="">
+            <figcaption>
+            </figcaption>
+          </figure>
+        </a>
+        <a>
+          <figure>
+            <img src="./imgs/bottle.gif" alt="">
+            <figcaption>
+            </figcaption>
+          </figure>
+        </a>
+        <a>
+          <figure>
+            <img src="./imgs/bottle.gif" alt="">
+            <figcaption>
+            </figcaption>
+          </figure>
+        </a>
+        <a>
+          <figure>
+            <img src="./imgs/bottle.gif" alt="">
+            <figcaption>
+            </figcaption>
+          </figure>
+        </a>
+        <a>
+          <figure>
+            <img src="./imgs/bottle.gif" alt="">
+            <figcaption>
+            </figcaption>
+          </figure>
+        </a>
+        <a>
+          <figure>
+            <img src="./imgs/bottle.gif" alt="">
+             <figcaption>
+            </figcaption>
+          </figure>
+        </a>
+        <a>
+          <figure>
+            <img src="./imgs/bottle.gif" alt="">
+            <figcaption>
+            </figcaption>
+          </figure>
+        </a>
+      </div>
+    </div>
+</div>
+<div>
+  <div id="rectangle" style="width: 100%"></div>
+  <div id="rectangle" style="width: 80%"></div>
+  <div id="rectangle" style="width: 60%"></div>
+  <div id="rectangle" style="width: 40%"></div>
+  <div id="rectangle" class="opacity" style="width: 20%"></div>
+  <div id="rectangle" style="width: 10%"></div>
+  <div id="rectangle2" style="width: 100%"></div>
+  <div id="rectangle2" style="width: 80%"></div>
+  <div id="rectangle2" style="width: 60%"></div>
+  <div id="rectangle2" style="width: 40%"></div>
+  <div id="rectangle2" style="width: 20%"></div>
+  <div id="rectangle2" style="width: 10%"></div>
+</div>
+</body>
+  <script>
+    var moon = document.getElementsByClassName("moon");
+    TweenMax.to(moon, 40, {rotation:360, transformOrigin:"40px -100px", repeat:10000, ease:Linear.easeNone, yoyo:false})
+    var rect = document.getElementById("rectangle")
+    TweenMax.to(rect, 10, {width: "20%", repeat:1000, yoyo:true, ease:Linear.easeNone})
+    var opac = document.getElementsByClassName("opacity")
+    TweenMax.to(opac, 2, {opacity: 0, yoyo:true, repeat: 1000, ease:Linear.easeNone})
+  </script>
+</html>
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Made in: Grand Rapids, MI</p>
+    </div>
+</footer>

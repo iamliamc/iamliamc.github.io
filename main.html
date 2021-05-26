@@ -1,0 +1,137 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Not Wrong Studios</title>
+    <meta name="description" content="Not Wrong Studios">
+    <meta name="Not Wrong Studios" content="Grand Rapids, MI">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/custom_styles.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+    <body>
+
+<div3>
+</div3>
+    </body>
+    <canvas id="canvas">
+      <video id=v controls loop>
+          <canvas id=c></canvas>
+          <video id=v controls loop>
+            <source src=video.webm type=video/webm>
+          </video>
+      </video>
+    </canvas>
+    <script type="text/javascript">
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+        var magenta = "#FF5157";
+        var yellow = "#FFC159";
+        var blue = "#00BADD";
+
+
+        var height = self.innerHeight;
+        var width = self.innerWidth;
+        canvas.width = width;
+        canvas.height = height;
+
+        var totalOffset = 0;
+
+        Number.prototype.mod = function(n) {
+            return ((this%n)+n)%n;
+        }
+
+        firstColorOffset = 0;
+        secondColorOffset = 0.5;
+        thirdColorOffset = 1;
+        fourthColorOffset = 1.5;
+
+        var firstColor = magenta;
+        var secondColor = yellow;
+        var thirdColor = blue;
+        var fourthColor = firstColor;
+
+        var drawGradient = function(offset) {
+            totalOffset += offset;
+            context.clearRect(0, 0, width, height);
+            var gradient = context.createLinearGradient(0-totalOffset, 0, (width * 2)-totalOffset, 0);
+            if (firstColorOffset <= 1)
+                gradient.addColorStop(firstColorOffset, firstColor);
+
+            if (secondColorOffset <= 1)
+                gradient.addColorStop(secondColorOffset, secondColor);
+
+            if (thirdColorOffset <= 1)
+                gradient.addColorStop(thirdColorOffset, thirdColor);
+
+            if (fourthColorOffset <= 1)
+                gradient.addColorStop(fourthColorOffset, fourthColor);
+
+            if (totalOffset > (width)) {
+                firstColorOffset = (firstColorOffset - 0.5).mod(1.5);
+                secondColorOffset = (secondColorOffset - 0.5).mod(1.5);
+                thirdColorOffset = (thirdColorOffset - 0.5).mod(1.5);
+                fourthColorOffset = (fourthColorOffset - 0.5).mod(1.5);
+                totalOffset = 0;
+            }
+
+            context.fillStyle = gradient;
+            context.fillRect(0, 0, width, height);
+        }
+
+
+
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                                       window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+        var start = null
+        var animate = function(timestamp) {
+            var delta;
+            if (start === null) start = timestamp;
+            delta = timestamp - start;
+            drawGradient(delta / 5);
+            if (delta < 2000) {
+                requestAnimationFrame(animate);
+            }
+            start = timestamp;
+        }
+        requestAnimationFrame(animate);
+
+        window.onresize = function() {
+            width = self.innerWidth;
+            height = self.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+        window.onfocus = function() {
+            requestAnimationFrame(animate);
+        }
+
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var v = document.getElementById('v');
+      var canvas = document.getElementById('c');
+      var context = canvas.getContext('2d');
+
+      var cw = Math.floor(canvas.clientWidth / 100);
+      var ch = Math.floor(canvas.clientHeight / 100);
+      canvas.width = cw;
+      canvas.height = ch;
+
+      v.addEventListener('play', function() {
+        draw(this, context, cw, ch);
+      }, false);
+
+    }, false);
+
+    function draw(v, c, w, h) {
+      if (v.paused || v.ended) return false;
+      c.drawImage(v, 0, 0, w, h);
+      setTimeout(draw, 20, v, c, w, h);
+    }
+    </script>
+</html>

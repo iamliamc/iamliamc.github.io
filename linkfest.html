@@ -1,0 +1,148 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Not Wrong Studios</title>
+    <meta name="description" content="Not Wrong Studios">
+    <meta name="Not Wrong Studios" content="Grand Rapids, MI">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans|Open+Sans' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!--CDN link for  TweenMax-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
+    <!--CDN links for TweenLite, CSSPlugin, and EasePack-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/plugins/CSSPlugin.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/easing/EasePack.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenLite.min.js"></script>
+    <link rel="stylesheet" href="css/custom_styles.css">
+    <script type="text/javascript">
+        $(document).ready(function() {
+            //Link_content1
+            $('#spanish_inquisition').click(function() {
+                $('#infospace').hide().html('<p>The meaning of the passage is righteous!</p><img src="imgs/2.jpg" alt="IMG 2" class="img-rounded center-block img-responsive">').fadeIn(2500);
+                $("#myAudio").unbind('timeupdate', timeTrigger);
+            });
+
+            //Link_content2
+            $('#scorched_earth').click(function() {
+                $('#infospace').hide().html('<p>Here is some more learning for your dumbass</p><img src="imgs/1.jpg" alt="IMG 1" class="img-rounded center-block img-responsive">').fadeIn(2500)
+            });
+
+            //Tween Page Line
+            TweenMax.fromTo('#lyrics', 5, {
+                "border-right": '1px dashed rgba(139, 133, 137, 1)'
+            }, {
+                "border-right": '1px dashed rgba(139, 133, 137, 0)',
+                repeat: -1,
+                yoyo: true
+            });
+
+            // function emptySpot() {
+            //   $('#infospace').hide().html('').fadeIn(2500);
+            //   bindBreaker();
+            // }
+
+            function sleep(milliseconds) {
+                var start = new Date().getTime();
+                for (var i = 0; i < 1e7; i++) {
+                    if ((new Date().getTime() - start) > milliseconds) {
+                        break;
+                    }
+                }
+            }
+
+            // function bindBreaker() {
+            //   $("#myAudio").unbind('timeupdate').bind('timeupdate', emptySpot);
+            //
+            // }
+
+            // myAudio = document.getElementById("myAudio");
+            // audioTime = myAudio.currentTime;
+            // myAudio.ontimeupdate = function() {
+            //     myFunction()
+            // };
+            //
+            // var firstLoop = true;
+            // function myFunction() {
+            //       if (2 <= Math.floor(audioTime) && 4 >= Math.floor(audioTime) && firstLoop) {
+            //           $('#infospace').hide().html('<p>This time the time rules</p><img src="imgs/4.jpg" alt="IMG 4" class="img-rounded center-block img-responsive">').fadeIn(2500);
+            //           firstLoop = false;
+            //       };
+            //
+            //     // Display the current position of the video in a p element with id="demo"
+            //     // document.getElementById("demo").innerHTML = vid.currentTime;
+            // };
+
+            //Based_on_time - keeps running for the whole thing
+            $("#myAudio").bind('timeupdate', timeTrigger);
+            var firstLoop = true;
+            var firstLoop2 = true;
+            function timeTrigger() {
+                console.log("Made it into the timeTrigger function");
+                myAudio = document.getElementById("myAudio");
+                audioTime = myAudio.currentTime;
+                //console.log(Math.floor(audioTime));
+                if (2 <= Math.floor(audioTime) && 4 >= Math.floor(audioTime) && firstLoop) {
+                    $('#infospace').hide().html('<p>This time the time rules</p><img src="imgs/4.jpg" alt="IMG 4" class="img-rounded center-block img-responsive">').fadeIn(2500);
+                    firstLoop = false;
+                };
+                if (8 <= Math.floor(audioTime) && 12 >= Math.floor(audioTime) && firstLoop2) {
+                    $('#infospace').hide().html('<p>Can\'t stop won\'t stop</p><img src="imgs/5.jpg" alt="IMG 5" class="img-rounded center-block img-responsive">').fadeIn(2500);
+                    firstLoop2 = false;
+                };
+            };
+            timeTrigger();
+            var lyricsLink = $('#lyricsList').find('a');
+
+        });
+    </script>
+</head>
+
+<body id="linkfest">
+    <div class="container-fluid">
+        <div class="row" id="lyricsList">
+            <div id="lyrics" class="border col-md-6 col-xs-6 text-center" style="margin-top:5%; font-family: 'Droid Sans', sans-serif; font-size: 2vw; border-right: 1px dashed rgba(139, 133, 137, 1);">
+                <p>I hate the fact that assholes</p>
+                <p>run the whole planet</p>
+                <p>i’ve fought em for generations </p>
+                <p>since I was a cave man</p>
+                <a id="spanish_inquisition">
+                    <p>Spanish inquisition</p>
+                </a>
+                <p>modern day arraignment</p>
+                <a id="scorched_earth" <p>Scorched Earth</p></a>
+                <p>Scorched Sky</p>
+                <p>bring back the rain danc</p>
+                <p>Outerspace k-pa</p>
+                <p>wikileaks diplomat</p>
+                <p>9/11 epitaphs</p>
+                <p>drug war underclas</p>
+                <p>class war redefined</p>
+                <p>define war</p>
+                <p>war is peace</p>
+                <p>newspeak</p>
+                <p>speak your peace</p>
+                <p>peace of min</p>
+                <p>is hard to reach</p>
+            </div>
+            <div class="col-xs-3 col-xs-offset-1 sidebar-outer">
+                <div id="infospace" class="border col-md-4 col-xs-3 top-buffer text-center fixed" style="font-family: 'Droid Sans', sans-serif; font-size: 2vw;">
+                    <p></p>
+                </div>
+                <audio id="myAudio" controls autoplay style="position: fixed; width: 60vh; bottom: 5%;">
+                  <source src="audio/ophelia.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </div>
+    </div>
+</body>
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Made in: Grand Rapids, MI</p>
+    </div>
+</footer>
+
+</html>

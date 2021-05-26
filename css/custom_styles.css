@@ -1,0 +1,207 @@
+/* Space Images */
+.top-buffer {
+  margin-top:7%;
+}
+
+/* some footer styling */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+.footer {
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  margin-top: 20px; /* space between content and footer */
+  box-sizing: border-box;
+  position: relative;
+  /* background-color: #f5f5f5; */
+}
+
+/*
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+*/
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* Horizontal Padding Images */
+/* .image_right {
+  margin-left: 10% !important;
+}
+
+.image_left {
+  margin-right: 10% !important;
+} */
+
+/*Image hover effect and link */
+.hovereffect {
+  width: 100%;
+  height: 100%;
+  float: left;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: default;
+}
+
+.hovereffect .overlay {
+  position: absolute;
+  overflow: hidden;
+  width: 80%;
+  height: 80%;
+  left: 10%;
+  top: 10%;
+  border-bottom: 1px solid #FFF;
+  border-top: 1px solid #FFF;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: scale(0,1);
+  -ms-transform: scale(0,1);
+  transform: scale(0,1);
+}
+
+.hovereffect:hover .overlay {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.hovereffect img {
+  display: block;
+  position: relative;
+  -webkit-transition: all 0.35s;
+  transition: all 0.35s;
+}
+
+.hovereffect:hover img {
+  filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="0.6" /><feFuncG type="linear" slope="0.6" /><feFuncB type="linear" slope="0.6" /></feComponentTransfer></filter></svg>#filter');
+  filter: brightness(0.6);
+  -webkit-filter: brightness(0.6);
+}
+
+.hovereffect h2 {
+  text-transform: uppercase;
+  text-align: center;
+  position: relative;
+  font-size: 17px;
+  background-color: transparent;
+  color: #FFF;
+  padding: 1em 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: translate3d(0,-100%,0);
+  transform: translate3d(0,-100%,0);
+}
+
+.hovereffect a, hovereffect p {
+  color: #FFF;
+  padding: 1em 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: translate3d(0,100%,0);
+  transform: translate3d(0,100%,0);
+}
+
+.hovereffect:hover a, .hovereffect:hover p, .hovereffect:hover h2 {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+.sidebar-outer {
+    margin-top: 5%;
+    position: relative;
+}
+.fixed {
+    position: fixed;
+}
+
+.audio-place {
+    position: fixed;
+    bottom: 0;
+    width: inherit;
+}
+
+.center-video {
+  width: 560px; /* you have to have a size or this method doesn't work */
+  height: 315px; /* think about making these max-width instead - might give you some more responsiveness */
+
+  position: absolute; /* positions out of the flow, but according to the nearest parent */
+  top: 0; right: 0; /* confuse it i guess */
+  bottom: 0; left: 0;
+  margin: auto; /* make em equal */
+}
+
+body.youtube {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-image: url('../imgs/undercon_edit.JPG');
+  opacity: 80%;
+  background-color: #123;
+}
+
+#hero {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+
+#triangle-bottomright {
+	width: 0;
+	height: 0;
+	border-bottom: 10000px solid red;
+	border-left: 10000px solid transparent;
+  display: flex;
+}
+
+#scrollcircle {
+	width: 1000px;
+	height: 1000px;
+	background: blue;
+	-moz-border-radius: 500px;
+	-webkit-border-radius: 500px;
+	border-radius: 500px;
+  z-index: -1;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -500px; /* Negative half of height. */
+  margin-left: -500px; /* Negative half of width. */
+  opacity: 0;
+}
+
+#outer {
+  display: flex;
+}
+
+.centeredTitle {
+  text-align: center;
+  border: solid;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
