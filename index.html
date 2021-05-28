@@ -5,17 +5,31 @@
 <head>
     <meta charset="utf-8">
     <title>Not Wrong Studios</title>
+    <link rel="shortcut icon" type="image/jpg" href="imgs/favicon.ico"/>
     <meta name="description" content="Not Wrong Studios">
-    <meta name="Not Wrong Studios" content="Grand Rapids, MI">
+    <meta name="Not Wrong Studios" content="Wherever friends and families arrive">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/custom_styles.css">
+    <!--CDN link for  TweenMax-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
+    <!--CDN links for TweenLite, CSSPlugin, and EasePack-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/plugins/CSSPlugin.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/easing/EasePack.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenLite.min.js"></script>
 </head>
 
 <body id="index">
-    <div class="container-fluid">
-        <h1>NOT WRONG STUDIOS</h1>
+    <div style="font-family: 'Inter', sans-serif;" class="container-fluid">
+        <div style="width: 33.3%;">
+                <h1>NOT WRONG ARCHIVES 
+                        <img id="bio-image" class="bio-glow img-circle img-valign" src="imgs/liam.jpg" style="height: 1em;" alt="" />
+                </h1> 
+                <h5 style="margin-top: -1em;" id="quick-description">Multimedia Sculpture for the Browser ’16 - ’19</h5>
+        </div>
         <div class="row">
             <div class="border col-xs-12 col-md-6 top-buffer">
                 <div class="hovereffect">
@@ -91,7 +105,50 @@
 <footer class="footer">
     <div class="container">
         <p class="text-muted">Made in: Grand Rapids, MI</p>
-    </div>
+    </div> 
 </footer>
+<script>
+    var description = document.getElementById("quick-description")
+    TweenMax.to(description, 10, {"margin-left": "26%", repeat:1, yoyo:true, ease:Power1.easeOut})
+    var bioImage = document.getElementById("bio-image")
 
+    //box-shadow: 0px 0px 15px 5px rgba(255, 255, 190, 0.75);
+    //box-shadow: 0px 0px 15px 5px rgba(93, 139, 236, 0.75);
+    glowParameters = {
+        x: 0,
+        y: 0,
+        x1: 2,
+        y1: 2,
+        r: 255,
+        g: 255,
+        b: 190,
+        a: 0.25
+    }
+
+    TweenMax.to(glowParameters, 10, {
+        a: 0.15,
+        x: 0.1,
+        y: 0.1,
+        x1: 2.5,
+        y1: 2.5,
+        r: 255,
+        g: 0,
+        b: 255,
+        repeat: -1,
+        yoyo: true,
+        ease:Power1.easeOut,
+        onUpdate
+        }
+    );
+
+
+    function onUpdate() {
+        TweenMax.set(
+            bioImage, { 
+            boxShadow: `${glowParameters.x}em ${glowParameters.y}em ${glowParameters.x1}em ${glowParameters.y1}em rgba(${glowParameters.r}, ${glowParameters.g}, ${glowParameters.b}, ${glowParameters.a})`
+        }
+        )
+    }
+
+  </script>
 </html>
