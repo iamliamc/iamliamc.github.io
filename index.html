@@ -23,11 +23,13 @@
 </head>
 
 <body id="index">
-    <div style="font-family: 'Inter', sans-serif;" class="container-fluid">
+    <div class="custom-text container-fluid">
         <div style="width: 33.3%;">
+            <div>
                 <h1>NOT WRONG ARCHIVES 
-                        <img id="bio-image" class="bio-glow img-circle img-valign" src="imgs/liam.jpg" style="height: 1em;" alt="" />
+                    <img id="bio-image" class="shakey bio-glow img-circle img-valign" src="imgs/liam.jpg" style="height: 1em;" alt="" />
                 </h1> 
+            </div>
                 <h5 style="margin-top: -1em;" id="quick-description">Multimedia Sculpture for the Browser ’16 - ’19</h5>
         </div>
         <div class="row">
@@ -100,6 +102,19 @@
             <div class="border col-xs-12 col-md-6 top-buffer"><img src="imgs/8.jpg" alt="IMG 8" class="img-rounded center-block img-responsive"></div>
         </div>
     </div>
+    <!-- Creates the bootstrap modal where the image will appear -->
+    <div class="modal fade custom-text" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h3 class="modal-title" id="myModalLabel">Liam Considine</h3>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+        </div>
+    </div>
     <script src="js/scripts.js"></script>
 </body>
 <footer class="footer">
@@ -149,6 +164,11 @@
         }
         )
     }
+
+    $("#bio-image").on("click", function() {
+        $('#imagepreview').attr('src', $('#bio-image').attr('src')); // here asign the image to the modal when the user click the enlarge link
+        $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+    });
 
   </script>
 </html>
