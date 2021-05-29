@@ -32,6 +32,11 @@
                 $('#infospace').hide().html('<p>Here is some more learning for your dumbass</p><img src="imgs/1.jpg" alt="IMG 1" class="img-rounded center-block img-responsive">').fadeIn(2500)
             });
 
+            //Link_content3
+            $('#newspeak').click(function() {
+                $('#infospace').hide().html('<p>Here is some more learning for your dumbass</p><img src="imgs/5.jpg" alt="IMG 1" class="img-rounded center-block img-responsive">').fadeIn(2500)
+            });
+
             //Tween Page Line
             TweenMax.fromTo('#lyrics', 5, {
                 "border-right": '1px dashed rgba(139, 133, 137, 1)'
@@ -40,6 +45,25 @@
                 repeat: -1,
                 yoyo: true
             });
+
+            /// https://stackoverflow.com/questions/8858994/let-user-scrolling-stop-jquery-animation-of-scrolltop
+            var $viewport = $('html, body');
+
+            // Some event to trigger the scroll animation (with a nice ease - requires easing plugin )...
+            $('#myAudio').on('playing', function() {
+                console.log("BOOOOOOM!")
+                $viewport.animate({ 
+                    scrollTop: 200 // set scrollTarget to your desired position
+                }, 20000);
+            });
+
+            // Stop the animation if the user scrolls. Defaults on .stop() should be fine
+            $viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup touchstart", function(e){
+                if ( e.which > 0 || e.type === "mousedown" || e.type === "mousewheel" || e.type === "touchstart"){
+                    $viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
+                }
+            });    
+
 
             // function emptySpot() {
             //   $('#infospace').hide().html('').fadeIn(2500);
@@ -81,6 +105,7 @@
             $("#myAudio").bind('timeupdate', timeTrigger);
             var firstLoop = true;
             var firstLoop2 = true;
+            var firstLoop3 = true;
             function timeTrigger() {
                 console.log("Made it into the timeTrigger function");
                 myAudio = document.getElementById("myAudio");
@@ -90,9 +115,13 @@
                     $('#infospace').hide().html('<p>This time the time rules</p><img src="imgs/4.jpg" alt="IMG 4" class="img-rounded center-block img-responsive">').fadeIn(2500);
                     firstLoop = false;
                 };
-                if (8 <= Math.floor(audioTime) && 12 >= Math.floor(audioTime) && firstLoop2) {
+                if (10 <= Math.floor(audioTime) && 22 >= Math.floor(audioTime) && firstLoop2) {
                     $('#infospace').hide().html('<p>Can\'t stop won\'t stop</p><img src="imgs/5.jpg" alt="IMG 5" class="img-rounded center-block img-responsive">').fadeIn(2500);
                     firstLoop2 = false;
+                };
+                if (24 <= Math.floor(audioTime) && 30 >= Math.floor(audioTime) && firstLoop3) {
+                    $('#infospace').hide().html('<p>Can\'t stop won\'t stop</p><img src="imgs/1.jpg" alt="IMG 5" class="img-rounded center-block img-responsive">').fadeIn(2500);
+                    firstLoop3 = false;
                 };
             };
             timeTrigger();
@@ -114,7 +143,7 @@
                     <p>Spanish inquisition</p>
                 </a>
                 <p>Modern day arraignment</p>
-                <a id="scorched_earth" <p>Scorched Earth</p></a>
+                <a id="scorched_earth"><p>Scorched Earth</p></a>
                 <p>Scorched Sky</p>
                 <p>Bring back the rain dance</p>
                 <p>Outerspace k-pac</p>
@@ -124,7 +153,7 @@
                 <p>Class war redefined</p>
                 <p>Define war</p>
                 <p>War is peace</p>
-                <p>Newspeak</p>
+                <a id="newspeak"><p>Newspeak</p></a>
                 <p>Speak your peace</p>
                 <p>Peace of mind</p>
                 <p>Is hard to reach</p>

@@ -30,7 +30,7 @@
                     <img id="bio-image" class="shakey bio-glow img-circle img-valign" src="imgs/liam.jpg" style="height: 1em;" alt="" />
                 </h1> 
             </div>
-                <h5 style="margin-top: -1em;" id="quick-description">Multimedia Sculpture for the Browser ’16 - ’19</h5>
+                <h5 style="margin-top: -1em;" id="quick-description">Multimedia Experiments for the Browser ’16 - ’19</h5>
         </div>
         <div class="row">
             <div class="border col-xs-12 col-md-6 top-buffer">
@@ -118,8 +118,8 @@
     <script src="js/scripts.js"></script>
 </body>
 <footer class="footer">
-    <div class="container">
-        <p class="text-muted">Made in: Grand Rapids, MI</p>
+    <div class="container text-muted">
+        <p>Made in: Grand Rapids / Amsterdam / NYC</p>
     </div> 
 </footer>
 <script>
@@ -141,13 +141,12 @@
     }
 
     TweenMax.to(glowParameters, 10, {
-        a: 0.15,
         x: 0.1,
         y: 0.1,
         x1: 2.5,
         y1: 2.5,
         r: 255,
-        g: 0,
+        g: 110,
         b: 255,
         repeat: -1,
         yoyo: true,
@@ -155,6 +154,14 @@
         onUpdate
         }
     );
+
+    TweenMax.to(glowParameters, 4, {
+        a: 0.15,
+        repeat: -1,
+        yoyo: true,
+        ease:Power1.easeOut,
+        onUpdate
+    })
 
 
     function onUpdate() {
