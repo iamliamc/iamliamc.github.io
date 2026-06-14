@@ -10,8 +10,8 @@
          RSVP setup: see apps-script/SETUP.md, then paste your deployed
          Apps Script URL into the SCRIPT_URL value near the bottom of this file.
          ════════════════════════════════════════════════════════════════ -->
-    <title>[Names] · Wedding</title>
-    <meta name="description" content="[Names] are getting married — RSVP and details.">
+    <title>Patricia &amp; Liam · Wedding</title>
+    <meta name="description" content="Patricia & Liam are getting married in Manistee, Michigan — RSVP and details.">
     <link rel="shortcut icon" type="image/jpg" href="imgs/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,6 +41,7 @@
             font-weight: 300;
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;  /* safety net against any horizontal scroll */
         }
 
         h1, h2, h3 { font-family: var(--serif); font-weight: 500; letter-spacing: 0.01em; }
@@ -64,8 +65,8 @@
             margin-bottom: 28px;
         }
         .hero .names {
-            font-size: clamp(48px, 11vw, 92px);
-            line-height: 1.05;
+            font-size: clamp(40px, 9vw, 88px);
+            line-height: 1.1;
             margin: 0;
         }
         .hero .amp { color: var(--accent); font-style: italic; font-weight: 400; }
@@ -76,6 +77,15 @@
             color: var(--soft);
         }
         .hero .place { color: var(--soft); font-size: 15px; letter-spacing: 0.05em; }
+        .hero-photo {
+            display: block;
+            width: 100%;
+            max-width: 480px;
+            height: auto;
+            margin: 40px auto 0;
+            border-radius: 12px;
+            box-shadow: 0 10px 34px rgba(59, 58, 54, 0.16);
+        }
 
         /* ── Sections ───────────────────────────────────────── */
         section { padding: 64px 0; border-bottom: 1px solid var(--line); }
@@ -151,7 +161,7 @@
             width: 100%;
             padding: 12px 14px;
             font-family: var(--sans);
-            font-size: 15px;
+            font-size: 16px;  /* 16px+ prevents iOS Safari auto-zoom on focus */
             font-weight: 300;
             color: var(--ink);
             background: #fff;
@@ -211,6 +221,28 @@
         .form-msg { text-align: center; margin-top: 16px; font-size: 14px; min-height: 1.2em; }
         .form-msg.error { color: #b4544a; }
 
+        .name-status { font-size: 13px; margin-top: 6px; min-height: 1.1em; }
+        .name-status.ok { color: var(--accent-dark); }
+        .name-status.warn { color: #b4544a; }
+        .hint { font-size: 13px; color: var(--soft); margin-top: 6px; }
+
+        .guest-row { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
+        .guest-row .guest-name { flex: 1; }
+        .guest-row .guest-meal { flex: 0 0 128px; }
+        .guest-row .remove-guest {
+            flex: 0 0 auto; width: 38px; height: 40px; padding: 0;
+            font-size: 20px; line-height: 1; letter-spacing: 0;
+            color: var(--soft); background: transparent; border: 1px solid var(--line);
+        }
+        .guest-row .remove-guest:hover { background: #efe9df; color: var(--ink); }
+        .add-guest {
+            width: auto; margin-top: 12px; padding: 9px 16px;
+            font-size: 12px; letter-spacing: 0.12em;
+            color: var(--accent-dark); background: transparent; border: 1px solid var(--accent);
+        }
+        .add-guest:hover { background: var(--accent); color: #fff; }
+        .add-guest:disabled { opacity: 0.4; background: transparent; color: var(--soft); border-color: var(--line); cursor: default; }
+
         #thankyou { display: none; text-align: center; }
         #thankyou h3 { font-size: 32px; margin: 0 0 8px; }
         #thankyou p { color: var(--soft); margin: 0; }
@@ -229,9 +261,20 @@
         footer .amp { color: var(--accent); font-family: var(--serif); }
 
         @media (max-width: 540px) {
+            .hero { padding: 56px 20px 48px; }
+            .hero .kicker { letter-spacing: 0.22em; font-size: 11px; }
+            .hero .names { font-size: clamp(30px, 8.5vw, 40px); }
+            .hero .date { font-size: 18px; }
+            section { padding: 48px 0; }
+            .wrap { padding: 0 20px; }
             .detail-grid { grid-template-columns: 1fr; gap: 20px; }
-            .card { padding: 24px; }
-            .event { grid-template-columns: 76px 1fr; gap: 12px; }
+            .card { padding: 24px 20px; }
+            .event { grid-template-columns: 64px 1fr; gap: 14px; }
+
+            /* Guest rows: name on its own line, meal + remove below */
+            .guest-row { flex-wrap: wrap; }
+            .guest-row .guest-name { flex: 1 1 100%; }
+            .guest-row .guest-meal { flex: 1 1 auto; }
         }
     </style>
 </head>
@@ -240,9 +283,10 @@
     <!-- ══ HERO ══════════════════════════════════════════════ -->
     <header class="hero">
         <div class="kicker">Together with their families</div>
-        <h1 class="names">[Partner One] <span class="amp">&amp;</span> [Partner Two]</h1>
-        <div class="date">[Saturday, the Twelfth of September, 2026]</div>
-        <div class="place">[City, State]</div>
+        <h1 class="names">Patricia Hazle <span class="amp">&amp;</span><br>Liam Considine</h1>
+        <div class="date">Saturday, the 12th of September, 2026</div>
+        <div class="place">Manistee, Michigan</div>
+        <img class="hero-photo" src="imgs/beach_sunset_web.jpg" width="1200" height="900" alt="Patricia and Liam on the beach at sunset">
     </header>
 
     <!-- ══ DETAILS ═══════════════════════════════════════════ -->
@@ -252,19 +296,22 @@
             <div class="sub">When &amp; Where</div>
             <div class="detail-grid">
                 <div>
-                    <div class="label">Ceremony</div>
-                    <p>[4:00 in the afternoon]</p>
-                    <p>[Venue Name]</p>
-                    <p>[123 Street Address]</p>
-                    <p>[City, State ZIP]</p>
+                    <div class="label">Arrival &amp; Cocktail Hour · 2:00 pm</div>
+                    <p>4774 Fox Farm Rd</p>
+                    <p>Manistee, MI 49660</p>
+                    <p style="margin-top:10px"><a href="https://maps.app.goo.gl/PZ2z82zEhZQVt6vd6" target="_blank" rel="noopener">Map &amp; directions →</a></p>
                 </div>
                 <div>
-                    <div class="label">Reception</div>
-                    <p>[Dinner &amp; dancing to follow]</p>
-                    <p>[Venue Name, if different]</p>
-                    <p style="margin-top:10px"><a href="[https://maps.google.com/?q=Your+Venue]" target="_blank" rel="noopener">View map &amp; directions →</a></p>
+                    <div class="label">Ceremony, Dinner &amp; Dancing · 4:00 pm</div>
+                    <p>Lakeland Recreation Association</p>
+                    <p>4140 University Pl</p>
+                    <p>Manistee, MI 49660</p>
+                    <p style="margin-top:10px"><a href="https://maps.app.goo.gl/fm2bgZKyvZ9UNnRx5" target="_blank" rel="noopener">Map &amp; directions →</a></p>
                 </div>
             </div>
+            <p style="text-align:center; color:var(--soft); font-size:14px; margin-top:28px">
+                The two spots are just down the road from one another.
+            </p>
         </div>
     </section>
 
@@ -272,13 +319,20 @@
     <section id="schedule">
         <div class="wrap">
             <h2>Schedule</h2>
-            <div class="sub">The Day</div>
+            <div class="sub">Wedding Weekend</div>
+
+            <p style="text-align:center; max-width:480px; margin:0 auto 44px; color:var(--soft)">
+                <strong style="display:block; color:var(--ink); font-family:var(--serif); font-size:22px; font-weight:500">Friday</strong>
+                A casual welcome gathering the evening before — details to come. <em>(TBD)</em>
+            </p>
+
+            <div class="sub" style="margin-bottom:24px">Saturday</div>
             <div class="timeline">
-                <div class="event"><div class="time">[3:30]</div><div class="what">Guests Arrive<small>[Find your seat]</small></div></div>
-                <div class="event"><div class="time">[4:00]</div><div class="what">Ceremony<small>[The main event]</small></div></div>
-                <div class="event"><div class="time">[5:00]</div><div class="what">Cocktail Hour<small>[Drinks &amp; canapés]</small></div></div>
-                <div class="event"><div class="time">[6:30]</div><div class="what">Dinner<small>[Find your table]</small></div></div>
-                <div class="event"><div class="time">[8:00]</div><div class="what">Dancing<small>[Until late]</small></div></div>
+                <div class="event"><div class="time">2:00</div><div class="what">Arrival Reception<small>Cocktails at 4774 Fox Farm Rd</small></div></div>
+                <div class="event"><div class="time">3:00</div><div class="what">Parade Through the Woods<small>A 15-minute walk together to the beach — or drive over to Lakeland if you'd prefer</small></div></div>
+                <div class="event"><div class="time">4:00</div><div class="what">Ceremony on the Beach<small>Vows, words &amp; poetry at Lakeland</small></div></div>
+                <div class="event"><div class="time">5:00</div><div class="what">Dinner in the Pole Barn<small>From the beach to the barn for drinks, a family-style dinner &amp; toasts</small></div></div>
+                <div class="event"><div class="time">7:00</div><div class="what">Party<small>Dancing &amp; a bonfire until 9:00</small></div></div>
             </div>
         </div>
     </section>
@@ -291,13 +345,18 @@
             <div class="detail-grid">
                 <div>
                     <div class="label">Accommodations</div>
-                    <p>[Hotel Name] — we've reserved a block of rooms under "[Block Name]".</p>
-                    <p style="margin-top:6px"><a href="[#]" target="_blank" rel="noopener">Book the room block →</a></p>
+                    <p>We'd encourage renting a home in the area to soak up the natural beauty of northern Michigan.</p>
+                    <p style="margin-top:6px">Prefer a hotel? We love the<br/>
+                        <a href="https://maps.app.goo.gl/DtAR6hcrK8A46bJMA" target="_blank" rel="noopener">Hampton Inn &amp; Suites Manistee Waterfront</a>.</p>
                 </div>
                 <div>
                     <div class="label">Getting Around</div>
-                    <p>[Nearest airport is XYZ, ~30 min away.]</p>
-                    <p>[Parking is available on-site / rideshare recommended.]</p>
+                    <p>Nearest airports:
+                        <br/>
+                        <a href="https://www.flymanistee.com/" target="_blank" rel="noopener">Manistee County (MBL)</a>
+                        <br/>
+                        <a href="https://www.grr.org/" target="_blank" rel="noopener">Gerald R. Ford (GRR)</a>.</p>
+                    <p style="margin-top:6px">Parking is available on-site — sharing rides is encouraged.</p>
                 </div>
             </div>
         </div>
@@ -310,13 +369,13 @@
             <div class="sub">Dress · Registry · FAQ</div>
             <div class="faq">
                 <div class="q">What should I wear?</div>
-                <p class="a">[Semi-formal / cocktail attire. The ceremony is outdoors on grass — plan your shoes accordingly!]</p>
-                <div class="q">Are kids welcome?</div>
-                <p class="a">[We love your little ones, but this will be an adults-only celebration.]</p>
+                <p class="a">Something that feels good — we welcome however you want to express yourself. If you plan to walk through the woods to the beach, comfortable footwear is encouraged.</p>
                 <div class="q">Where are you registered?</div>
-                <p class="a">[Your presence is the only present we need — but if you'd like, our registry is here:] <a href="[#]" target="_blank" rel="noopener">[Registry link]</a></p>
+                <p class="a">Your presence is the only present we need — but if you'd like, our registry is here: <a href="[#]" target="_blank" rel="noopener">[Registry link]</a></p>
                 <div class="q">Questions?</div>
-                <p class="a">Reach us anytime at <a href="mailto:[you@example.com]">[you@example.com]</a>.</p>
+                <p class="a">Reach us anytime — <br/>
+                    <span id="contact-emails">liamjconsidine <span aria-hidden="true">·at·</span> gmail.com<br>pattyhazle <span aria-hidden="true">·at·</span> gmail.com</span>
+                </p>
             </div>
         </div>
     </section>
@@ -325,12 +384,14 @@
     <section id="rsvp">
         <div class="wrap">
             <h2>RSVP</h2>
-            <div class="sub">Kindly reply by [August 1, 2026]</div>
+            <div class="sub">Kindly reply by August 1, 2026</div>
             <div class="card">
                 <form id="rsvp-form" novalidate>
                     <div class="field">
-                        <label for="name">Full Name <span class="req">*</span></label>
-                        <input type="text" id="name" name="name" autocomplete="name" required>
+                        <label for="name">Your Name <span class="req">*</span></label>
+                        <input type="text" id="name" name="name" list="guest-list" autocomplete="off" placeholder="Start typing to find your name…" required>
+                        <datalist id="guest-list"></datalist>
+                        <div class="name-status" id="name-status"></div>
                     </div>
 
                     <div class="field">
@@ -342,18 +403,20 @@
                     </div>
 
                     <div class="field attending-only">
-                        <label for="party">Number in your party</label>
-                        <input type="number" id="party" name="party_size" min="1" max="20" value="1">
+                        <label for="meal">Your meal preference <span class="req">*</span></label>
+                        <select id="meal" name="meal">
+                            <option value="">Select…</option>
+                            <option>Omnivore</option>
+                            <option>Vegan</option>
+                        </select>
+                        <div class="hint">We're serving family-style, split between omnivore and vegan dishes.</div>
                     </div>
 
-                    <div class="field attending-only">
-                        <label for="meal">Meal preference</label>
-                        <select id="meal" name="meal">
-                            <option value="">Select an entrée…</option>
-                            <option>[Beef]</option>
-                            <option>[Fish]</option>
-                            <option>[Vegetarian]</option>
-                        </select>
+                    <div class="field" id="guests-field" style="display:none">
+                        <label>Your guests</label>
+                        <div class="hint" id="guests-hint"></div>
+                        <div id="extra-guests"></div>
+                        <button type="button" class="add-guest" id="add-guest">+ Add a guest</button>
                     </div>
 
                     <div class="field attending-only">
@@ -385,7 +448,7 @@
     </section>
 
     <footer>
-        [Partner One] <span class="amp">&amp;</span> [Partner Two] · [09 . 12 . 2026]
+        Patricia <span class="amp">&amp;</span> Liam · 09 . 12 . 2026
     </footer>
 
     <script>
@@ -399,13 +462,37 @@
         const form = document.getElementById("rsvp-form");
         const msg = document.getElementById("form-msg");
         const btn = document.getElementById("submit-btn");
+        const nameInput = form.name;
+        const nameStatus = document.getElementById("name-status");
+        const guestsField = document.getElementById("guests-field");
+        const guestsHint = document.getElementById("guests-hint");
+        const extraGuests = document.getElementById("extra-guests");
+        const addGuestBtn = document.getElementById("add-guest");
+        const MEAL_OPTIONS = ["Omnivore", "Vegan"];
 
-        // Reveal meal/party/dietary fields only when attending
-        form.addEventListener("change", function (e) {
-            if (e.target.name === "attending") {
-                document.body.classList.toggle("is-attending", e.target.value === "Joyfully accepts");
+        // Per-guest state, filled from the Sheet.
+        let namesLoaded = false;   // did the guest list load?
+        let guestFound = false;    // is the typed name on the list?
+        let maxPlusOnes = 0;       // extra guests this person may bring
+
+        // ── Reusable JSONP call (a <script> tag, so we CAN read the reply,
+        //    unlike a CORS-blocked fetch to Apps Script) ───────────────────
+        function jsonp(params, onData, onErr) {
+            const cb = "cb_" + Date.now() + "_" + Math.floor(Math.random() * 1e6);
+            const script = document.createElement("script");
+            function cleanup() {
+                delete window[cb];
+                clearTimeout(timer);
+                if (script.parentNode) script.parentNode.removeChild(script);
             }
-        });
+            const timer = setTimeout(function () { cleanup(); if (onErr) onErr("timeout"); }, 15000);
+            window[cb] = function (resp) { cleanup(); onData(resp); };
+            script.onerror = function () { cleanup(); if (onErr) onErr("network"); };
+            const qs = new URLSearchParams(params);
+            qs.set("callback", cb);
+            script.src = SCRIPT_URL + "?" + qs.toString();
+            document.body.appendChild(script);
+        }
 
         function showError(text) {
             msg.textContent = text;
@@ -417,18 +504,140 @@
             btn.textContent = "Send RSVP";
         }
 
+        // ── Load the guest names into the dropdown on page load ──────────────
+        if (SCRIPT_URL) {
+            jsonp({ mode: "names" }, function (resp) {
+                if (resp && resp.names && resp.names.length) {
+                    const dl = document.getElementById("guest-list");
+                    dl.innerHTML = "";
+                    resp.names.forEach(function (n) {
+                        const opt = document.createElement("option");
+                        opt.value = n;
+                        dl.appendChild(opt);
+                    });
+                    namesLoaded = true;
+                }
+            }, function () { /* list didn't load — server still validates on submit */ });
+        }
+
+        // ── When attending choice changes, refresh field visibility ─────────
+        form.addEventListener("change", function (e) {
+            if (e.target.name === "attending") {
+                document.body.classList.toggle("is-attending", e.target.value === "Joyfully accepts");
+                updateGuestSection();
+            }
+        });
+
+        // ── When the name changes, look up that guest's +1 allowance ────────
+        nameInput.addEventListener("change", function () {
+            const n = nameInput.value.trim();
+            guestFound = false;
+            maxPlusOnes = 0;
+            nameStatus.textContent = "";
+            nameStatus.className = "name-status";
+            updateGuestSection();
+            if (!n || !SCRIPT_URL) return;
+
+            jsonp({ mode: "lookup", name: n }, function (resp) {
+                if (resp && resp.found) {
+                    guestFound = true;
+                    maxPlusOnes = resp.maxPlusOnes || 0;
+                    nameStatus.textContent = "✓ Found you on our list.";
+                    nameStatus.className = "name-status ok";
+                } else if (namesLoaded) {
+                    nameStatus.textContent = "We don't see that name on our list — please pick yours from the suggestions, or contact us.";
+                    nameStatus.className = "name-status warn";
+                }
+                updateGuestSection();
+            });
+        });
+
+        // ── Add / remove guest lines (capped at maxPlusOnes) ────────────────
+        addGuestBtn.addEventListener("click", function () { addGuestRow(); });
+
+        function addGuestRow() {
+            if (extraGuests.children.length >= maxPlusOnes) return;
+            const row = document.createElement("div");
+            row.className = "guest-row";
+            const opts = MEAL_OPTIONS.map(function (m) { return "<option>" + m + "</option>"; }).join("");
+            row.innerHTML =
+                '<input type="text" class="guest-name" placeholder="Guest name">' +
+                '<select class="guest-meal"><option value="">Meal…</option>' + opts + '</select>' +
+                '<button type="button" class="remove-guest" aria-label="Remove guest" title="Remove">&times;</button>';
+            row.querySelector(".remove-guest").addEventListener("click", function () {
+                row.remove();
+                refreshAddButton();
+            });
+            extraGuests.appendChild(row);
+            refreshAddButton();
+        }
+
+        function refreshAddButton() {
+            const remaining = maxPlusOnes - extraGuests.children.length;
+            addGuestBtn.disabled = remaining <= 0;
+            guestsHint.textContent = "You may bring up to " + maxPlusOnes +
+                (maxPlusOnes === 1 ? " guest" : " guests") + ". " +
+                (remaining > 0 ? "Add their name and meal below." : "You've added the maximum.");
+        }
+
+        // ── Show the guests section only if attending AND allowed a +1 ──────
+        function updateGuestSection() {
+            const attending = form.querySelector("input[name=attending]:checked");
+            const isAttending = attending && attending.value === "Joyfully accepts";
+
+            if (isAttending && maxPlusOnes > 0) {
+                // If the allowance shrank (different name picked), trim extra rows.
+                while (extraGuests.children.length > maxPlusOnes) extraGuests.lastElementChild.remove();
+                guestsField.style.display = "block";
+                refreshAddButton();
+            } else {
+                extraGuests.innerHTML = "";
+                guestsField.style.display = "none";
+            }
+        }
+
         form.addEventListener("submit", function (e) {
             e.preventDefault();
             msg.textContent = "";
             msg.classList.remove("error");
 
             // ── client-side validation ──
-            const name = form.name.value.trim();
+            const name = nameInput.value.trim();
             const attending = form.querySelector("input[name=attending]:checked");
             if (!name) return showError("Please tell us your name.");
+            if (namesLoaded && !guestFound) {
+                return showError("We don't see that name on our list — please pick yours from the suggestions, or contact us.");
+            }
             if (!attending) return showError("Please let us know if you can make it.");
-            if (attending.value === "Joyfully accepts" && !form.meal.value) {
-                return showError("Please choose a meal preference.");
+
+            const attendingYes = attending.value === "Joyfully accepts";
+            let partySize = 1, additional = "", veganCount = 0, omnivoreCount = 0;
+
+            if (attendingYes) {
+                if (!form.meal.value) return showError("Please choose your meal preference.");
+
+                // Collect the extra-guest rows (name + meal required on each).
+                const rows = Array.prototype.slice.call(extraGuests.querySelectorAll(".guest-row"));
+                const extras = [];
+                for (let i = 0; i < rows.length; i++) {
+                    const gName = rows[i].querySelector(".guest-name").value.trim();
+                    const gMeal = rows[i].querySelector(".guest-meal").value;
+                    if (!gName || !gMeal) {
+                        return showError("Please add a name and meal for each guest, or remove the empty line.");
+                    }
+                    extras.push({ name: gName, meal: gMeal });
+                }
+
+                partySize = 1 + extras.length;
+                if (partySize > 1 + maxPlusOnes) {
+                    return showError("That's more guests than your invitation allows.");
+                }
+
+                // Tally meals (including you) for the caterer; list the extras by name.
+                const tally = function (m) { if (m === "Vegan") veganCount++; else if (m === "Omnivore") omnivoreCount++; };
+                tally(form.meal.value);
+                extras.forEach(function (g) { tally(g.meal); });
+                additional = extras.map(function (g) { return g.name + " (" + g.meal + ")"; }).join("; ");
             }
 
             // honeypot tripped → silently pretend success, send nothing
@@ -441,52 +650,53 @@
             btn.disabled = true;
             btn.textContent = "Sending…";
 
-            // ── JSONP submit ──────────────────────────────────────────────
-            // A <script> tag isn't subject to CORS, so unlike a fetch we can
-            // actually READ the server's reply. We only show "Thank you!" once
-            // Apps Script confirms result:"success" — no silent data loss.
-            const cbName = "rsvpCb_" + Date.now();
-            const script = document.createElement("script");
+            // FormData carries name/attending/meal/dietary/message; we add the
+            // computed party fields. The server re-checks the name + cap, so it's
+            // enforced even if someone bypasses the UI.
+            const submitParams = new URLSearchParams(new FormData(form));
+            submitParams.set("party_size", String(partySize));
+            submitParams.set("additional_guests", additional);
+            submitParams.set("vegan_count", String(veganCount));
+            submitParams.set("omnivore_count", String(omnivoreCount));
 
-            function cleanup() {
-                delete window[cbName];
-                if (script.parentNode) script.parentNode.removeChild(script);
-            }
-
-            const timer = setTimeout(function () {
-                cleanup();
-                resetButton();
-                showError("That took too long to send. Please check your connection and try again.");
-            }, 15000);
-
-            window[cbName] = function (resp) {
-                clearTimeout(timer);
-                cleanup();
+            jsonp(submitParams, function (resp) {
                 if (resp && resp.result === "success") {
                     succeed();
+                } else if (resp && resp.result === "over_limit") {
+                    resetButton();
+                    showError("That's more guests than your invitation allows — please adjust your party size.");
+                } else if (resp && resp.result === "not_invited") {
+                    resetButton();
+                    showError("We couldn't match that name to our guest list — please pick yours from the suggestions, or contact us.");
                 } else {
                     resetButton();
                     showError("Something went wrong saving your RSVP. Please try again, or email us.");
                 }
-            };
-
-            script.onerror = function () {
-                clearTimeout(timer);
-                cleanup();
+            }, function () {
                 resetButton();
                 showError("Couldn't reach the RSVP service. Please try again, or email us.");
-            };
-
-            const params = new URLSearchParams(new FormData(form));
-            params.set("callback", cbName);
-            script.src = SCRIPT_URL + "?" + params.toString();
-            document.body.appendChild(script);
+            });
         });
 
         function succeed() {
             form.style.display = "none";
             document.getElementById("thankyou").style.display = "block";
         }
+
+        // ── Contact emails ──────────────────────────────────────────────
+        // Assembled here so the literal address never appears in the page
+        // source that email-harvesting bots scrape. The "@" is joined at
+        // runtime; no-JS visitors still see a readable "name ·at· gmail.com".
+        (function () {
+            const el = document.getElementById("contact-emails");
+            if (!el) return;
+            const domain = ["gmail", "com"].join(".");
+            const users = ["liamjconsidine", "pattyhazle"];
+            el.innerHTML = users.map(function (u) {
+                const addr = u + String.fromCharCode(64) + domain;
+                return '<a href="' + "mailto:" + addr + '">' + addr + "</a>";
+            }).join("<br>");
+        })();
     </script>
 </body>
 
