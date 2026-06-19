@@ -630,23 +630,38 @@
         let guestFound = false;    // is the typed name on the list?
         let maxPlusOnes = 0;       // extra guests this person may bring
 
-        // ── Reusable JSONP call (a <script> tag, so we CAN read the reply,
-        //    unlike a CORS-blocked fetch to Apps Script) ───────────────────
+        // ── Reusable call to the Apps Script endpoint ──────────────────────
+        // We deliberately use fetch() with credentials:"omit" rather than a
+        // <script> (JSONP) tag. A <script> request carries the visitor's
+        // Google cookies, so when someone is signed into MULTIPLE Google
+        // accounts, Google rewrites the request to an account-specific
+        // /macros/u/N/... URL that returns 404 — the dropdown and submits
+        // silently fail (works in Incognito, fails when logged in). Sending
+        // no credentials makes Google serve the app anonymously for everyone.
+        // The endpoint sets Access-Control-Allow-Origin:*, so the CORS read
+        // succeeds; we keep &callback= and just unwrap the JSONP text.
         function jsonp(params, onData, onErr) {
-            const cb = "cb_" + Date.now() + "_" + Math.floor(Math.random() * 1e6);
-            const script = document.createElement("script");
-            function cleanup() {
-                delete window[cb];
-                clearTimeout(timer);
-                if (script.parentNode) script.parentNode.removeChild(script);
-            }
-            const timer = setTimeout(function () { cleanup(); if (onErr) onErr("timeout"); }, 15000);
-            window[cb] = function (resp) { cleanup(); onData(resp); };
-            script.onerror = function () { cleanup(); if (onErr) onErr("network"); };
             const qs = new URLSearchParams(params);
-            qs.set("callback", cb);
-            script.src = SCRIPT_URL + "?" + qs.toString();
-            document.body.appendChild(script);
+            qs.set("callback", "cb");
+            let settled = false;
+            const timer = setTimeout(function () {
+                if (settled) return; settled = true;
+                if (onErr) onErr("timeout");
+            }, 15000);
+            fetch(SCRIPT_URL + "?" + qs.toString(), { credentials: "omit" })
+                .then(function (r) { return r.text(); })
+                .then(function (text) {
+                    if (settled) return; settled = true;
+                    clearTimeout(timer);
+                    // strip the cb( ... ) wrapper to get the raw JSON
+                    const json = text.replace(/^[^(]*\(/, "").replace(/\)\s*;?\s*$/, "");
+                    onData(JSON.parse(json));
+                })
+                .catch(function () {
+                    if (settled) return; settled = true;
+                    clearTimeout(timer);
+                    if (onErr) onErr("network");
+                });
         }
 
         function showError(text) {
