@@ -15,31 +15,40 @@
     <link rel="shortcut icon" type="image/jpg" href="imgs/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --ink: #3b3a36;
-            --soft: #7c7a72;
-            --bg: #faf8f4;
+            /* Cornflower-blue-on-white palette, matched to the printed invite */
+            --ink: #33415c;          /* dark blue-slate, for body text */
+            --soft: #7280a0;         /* muted blue-grey */
+            --bg: #ffffff;
             --card: #ffffff;
-            --accent: #8a9a7b;       /* eucalyptus / sage */
-            --accent-dark: #6f7e61;
-            --line: #e6e2da;
-            --serif: 'Cormorant Garamond', Georgia, serif;
-            --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --accent: #4f74c9;       /* cornflower blue — the invite blue */
+            --accent-dark: #3f63b8;  /* deeper blue, for links & hover */
+            --accent-soft: #9bb2e6;  /* light periwinkle */
+            --line: #e2e7f3;         /* faint blue-tinted hairline */
+            --sand: #f5efe6;         /* Great Lakes sandy off-white (page) */
+            --sand-soft: #f1ead9;    /* lighter sand */
+            /* Garamond for everything elegant (headings, prose, italics) */
+            --serif: 'EB Garamond', Garamond, Georgia, serif;
+            /* Swiss 721 ≈ Helvetica — the invite's bold uppercase names/labels */
+            --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
         * { box-sizing: border-box; }
 
-        html { scroll-behavior: smooth; }
+        /* sand base on the root so macOS overscroll reveals sand, not a seam */
+        html { scroll-behavior: smooth; background-color: var(--sand); }
 
         body {
             margin: 0;
-            background: var(--bg);
+            /* Flat sandy off-white "beach" page behind the white invite sheet. */
+            background-color: var(--sand);
             color: var(--ink);
-            font-family: var(--sans);
-            font-weight: 300;
-            line-height: 1.7;
+            font-family: var(--serif);   /* Garamond prose, like the invite */
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;  /* safety net against any horizontal scroll */
         }
@@ -49,6 +58,43 @@
         a { color: var(--accent-dark); }
 
         .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+        /* ── White invite "paper" sheet floating on the sand ──────────── */
+        .paper {
+            position: relative;
+            max-width: 1040px;
+            margin: 40px auto;
+            background: var(--bg);
+            box-shadow: 0 18px 60px rgba(58, 74, 110, 0.18);
+            /* gentle wavy top & bottom edges, echoing the invite's deckle border */
+            --wave: 96px;     /* width of one full wave */
+            --wave-h: 11px;   /* how far it undulates */
+        }
+        .paper::before,
+        .paper::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: var(--wave-h);
+            background: var(--bg);
+            -webkit-mask-repeat: repeat-x;
+            mask-repeat: repeat-x;
+            -webkit-mask-size: var(--wave) var(--wave-h);
+            mask-size: var(--wave) var(--wave-h);
+        }
+        /* top edge: a smooth sine wave bulging up out of the sheet */
+        .paper::before {
+            top: calc(-1 * var(--wave-h) + 1px);
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 11' preserveAspectRatio='none'%3E%3Cpath d='M0,5.5 q24,-5.5 48,0 t48,0 L96,11 L0,11 Z' fill='black'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 11' preserveAspectRatio='none'%3E%3Cpath d='M0,5.5 q24,-5.5 48,0 t48,0 L96,11 L0,11 Z' fill='black'/%3E%3C/svg%3E");
+        }
+        /* bottom edge: the same wave bulging down out of the sheet */
+        .paper::after {
+            bottom: calc(-1 * var(--wave-h) + 1px);
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 11' preserveAspectRatio='none'%3E%3Cpath d='M0,5.5 q24,5.5 48,0 t48,0 L96,0 L0,0 Z' fill='black'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 11' preserveAspectRatio='none'%3E%3Cpath d='M0,5.5 q24,5.5 48,0 t48,0 L96,0 L0,0 Z' fill='black'/%3E%3C/svg%3E");
+        }
 
         /* ── Hero ───────────────────────────────────────────── */
         .hero {
@@ -62,21 +108,49 @@
             letter-spacing: 0.35em;
             font-size: 12px;
             color: var(--soft);
-            margin-bottom: 28px;
+            margin-bottom: 18px;
+        }
+        /* botanical sprig above the names, like the invite */
+        .hero-flower {
+            display: block;
+            width: 100%;
+            max-width: 220px;
+            height: auto;
+            margin: 0 auto 22px;
         }
         .hero .names {
-            font-size: clamp(40px, 9vw, 88px);
-            line-height: 1.1;
+            font-family: var(--sans);          /* Swiss 721 bold, like the invite */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.005em;
+            color: var(--accent);
+            font-size: clamp(38px, 8.5vw, 82px);
+            line-height: 1.05;
             margin: 0;
         }
-        .hero .amp { color: var(--accent); font-style: italic; font-weight: 400; }
-        .hero .date {
-            margin-top: 28px;
+        .hero .amp { color: var(--accent); font-weight: 700; }
+        /* "invite you to celebrate their marriage" — Garamond, like the invite */
+        .hero .invite-line {
+            margin-top: 14px;
             font-family: var(--serif);
-            font-size: clamp(20px, 4vw, 28px);
-            color: var(--soft);
+            color: var(--accent);
+            font-size: clamp(20px, 3.4vw, 27px);
+            letter-spacing: 0.01em;
         }
-        .hero .place { color: var(--soft); font-size: 15px; letter-spacing: 0.05em; }
+        .hero .date {
+            margin-top: 32px;
+            font-family: var(--serif);
+            font-style: italic;                /* Garamond italic date, like the invite */
+            font-size: clamp(21px, 4vw, 30px);
+            color: var(--accent);
+        }
+        .hero .place {
+            font-family: var(--serif);
+            font-style: italic;
+            color: var(--soft);
+            font-size: 18px;
+            letter-spacing: 0.01em;
+        }
         .hero-photo {
             display: block;
             width: 100%;
@@ -84,22 +158,24 @@
             height: auto;
             margin: 40px auto 0;
             border-radius: 12px;
-            box-shadow: 0 10px 34px rgba(59, 58, 54, 0.16);
+            box-shadow: 0 10px 34px rgba(79, 116, 201, 0.20);
         }
 
         /* ── Sections ───────────────────────────────────────── */
         section { padding: 64px 0; border-bottom: 1px solid var(--line); }
         section h2 {
             text-align: center;
-            font-size: clamp(30px, 6vw, 42px);
-            margin: 0 0 8px;
+            color: var(--accent);
+            font-size: clamp(32px, 6vw, 46px);
+            margin: 0 0 6px;
         }
         section .sub {
             text-align: center;
+            font-family: var(--serif);
+            font-style: italic;            /* Garamond italic caption, like the invite */
             color: var(--soft);
-            font-size: 14px;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
+            font-size: 18px;
+            letter-spacing: 0.01em;
             margin-bottom: 40px;
         }
 
@@ -118,13 +194,36 @@
         }
         .detail-grid p { margin: 0 0 2px; }
 
+        /* ── Details: hand-drawn map beside the locations ─────── */
+        .details-split {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .details-map { margin: 0; }
+        .details-map img { display: block; width: 100%; height: auto; }
+        .details-map figcaption {
+            font-family: var(--serif);
+            font-style: italic;
+            text-align: center;
+            color: var(--soft);
+            font-size: 15px;
+            margin-top: 8px;
+        }
+        .details-text .label { margin-bottom: 4px; }
+        .details-text .place-block { margin-bottom: 24px; }
+        .details-text .place-block:last-child { margin-bottom: 0; }
+        .details-text p { margin: 0 0 2px; }
+
         /* ── Schedule timeline ──────────────────────────────── */
         .day-head {
             text-align: center;
             font-family: var(--serif);
-            font-size: 26px;
+            font-style: italic;
+            font-size: 28px;
             font-weight: 500;
-            color: var(--ink);
+            color: var(--accent);
             margin-bottom: 10px;
         }
         .day-note {
@@ -142,16 +241,17 @@
             border-bottom: 1px dashed var(--line);
         }
         .event:last-child { border-bottom: none; }
-        .event .time { font-family: var(--serif); font-size: 22px; color: var(--accent-dark); }
+        .event .time { font-family: var(--serif); font-style: italic; font-size: 24px; color: var(--accent); }
         .event .what { font-weight: 400; }
-        .event .what small { display: block; color: var(--soft); font-weight: 300; }
+        .event .what small { display: block; color: var(--soft); font-size: 16px; }
 
         .faq { max-width: 560px; margin: 0 auto; }
-        .faq .q { font-family: var(--serif); font-size: 22px; margin: 24px 0 4px; }
+        .faq .q { font-family: var(--serif); font-style: italic; font-size: 24px; color: var(--accent); margin: 24px 0 4px; }
         .faq .a { margin: 0; color: var(--soft); }
 
         /* ── RSVP form ──────────────────────────────────────── */
-        #rsvp { background: #f4f1ea; }
+        #rsvp { border-bottom: none; }
+        #rsvp .card { background: var(--sand); border-color: #d8ccb0; }
         .card {
             background: var(--card);
             border: 1px solid var(--line);
@@ -176,7 +276,7 @@
             padding: 12px 14px;
             font-family: var(--sans);
             font-size: 16px;  /* 16px+ prevents iOS Safari auto-zoom on focus */
-            font-weight: 300;
+            font-weight: 400;
             color: var(--ink);
             background: #fff;
             border: 1px solid var(--line);
@@ -194,6 +294,7 @@
             flex: 1;
             text-align: center;
             padding: 14px;
+            background: #fff;
             border: 1px solid var(--line);
             border-radius: 3px;
             cursor: pointer;
@@ -250,7 +351,7 @@
             max-height: 240px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            box-shadow: 0 10px 28px rgba(59, 58, 54, 0.14);
+            box-shadow: 0 10px 28px rgba(79, 116, 201, 0.18);
         }
         .suggest li {
             padding: 11px 14px;
@@ -258,7 +359,7 @@
             color: var(--ink);
             cursor: pointer;
         }
-        .suggest li:hover, .suggest li.active { background: #f1efe8; }
+        .suggest li:hover, .suggest li.active { background: #eef2fb; }
 
         .name-status { font-size: 13px; margin-top: 6px; min-height: 1.1em; }
         .name-status.ok { color: var(--accent-dark); }
@@ -273,7 +374,7 @@
             font-size: 20px; line-height: 1; letter-spacing: 0;
             color: var(--soft); background: transparent; border: 1px solid var(--line);
         }
-        .guest-row .remove-guest:hover { background: #efe9df; color: var(--ink); }
+        .guest-row .remove-guest:hover { background: #eef2fb; color: var(--ink); }
         .add-guest {
             width: auto; margin-top: 12px; padding: 9px 16px;
             font-size: 12px; letter-spacing: 0.12em;
@@ -307,6 +408,9 @@
             section { padding: 48px 0; }
             .wrap { padding: 0 20px; }
             .detail-grid { grid-template-columns: 1fr; gap: 20px; }
+            .details-split { grid-template-columns: 1fr; gap: 28px; }
+            .hero-flower { max-width: 230px; }
+            .paper { margin: 18px auto; }
             .card { padding: 24px 20px; }
             .event { grid-template-columns: 64px 1fr; gap: 14px; }
 
@@ -319,10 +423,13 @@
 </head>
 
 <body>
+  <div class="paper">
     <!-- ══ HERO ══════════════════════════════════════════════ -->
     <header class="hero">
         <div class="kicker">Together with their families</div>
+        <img class="hero-flower" src="imgs/flower_detail_web.png" alt="" aria-hidden="true">
         <h1 class="names">Patricia Hazle <span class="amp">&amp;</span><br>Liam Considine</h1>
+        <div class="invite-line">invite you to celebrate their marriage</div>
         <div class="date">Saturday, the 12th of September, 2026</div>
         <div class="place">Manistee, Michigan</div>
         <img class="hero-photo" src="imgs/beach_sunset_web.jpg" width="1200" height="900" alt="Patricia and Liam on the beach at sunset">
@@ -333,24 +440,30 @@
         <div class="wrap">
             <h2>The Details</h2>
             <div class="sub">When &amp; Where</div>
-            <div class="detail-grid">
-                <div>
-                    <div class="label">Arrival &amp; Cocktail Hour · 2:00 pm</div>
-                    <p>4774 Fox Farm Rd</p>
-                    <p>Manistee, MI 49660</p>
-                    <p style="margin-top:10px"><a href="https://maps.app.goo.gl/PZ2z82zEhZQVt6vd6" target="_blank" rel="noopener">Map &amp; directions →</a></p>
-                </div>
-                <div>
-                    <div class="label">Ceremony, Dinner &amp; Dancing · 4:00 pm</div>
-                    <p>Lakeland Recreation Association</p>
-                    <p>4140 University Pl</p>
-                    <p>Manistee, MI 49660</p>
-                    <p style="margin-top:10px"><a href="https://maps.app.goo.gl/fm2bgZKyvZ9UNnRx5" target="_blank" rel="noopener">Map &amp; directions →</a></p>
+            <div class="details-split">
+                <figure class="details-map">
+                    <img src="imgs/wedding_map_web.png" alt="Hand-drawn map: from 4774 Fox Farm along the woodland path to the beach at the Lakeland association">
+                    <figcaption>A short walk through the woods to the beach.</figcaption>
+                </figure>
+                <div class="details-text">
+                    <div class="place-block">
+                        <div class="label">Arrival &amp; Cocktail Hour · 2:00 pm</div>
+                        <p>4774 Fox Farm Rd</p>
+                        <p>Manistee, MI 49660</p>
+                        <p style="margin-top:10px"><a href="https://maps.app.goo.gl/PZ2z82zEhZQVt6vd6" target="_blank" rel="noopener">Map &amp; directions →</a></p>
+                    </div>
+                    <div class="place-block">
+                        <div class="label">Ceremony, Dinner &amp; Dancing · 4:00 pm</div>
+                        <p>Lakeland Recreation Association</p>
+                        <p>Fox Farm Rd &amp; Leininger Ln</p>
+                        <p>Filer Township, MI 49660</p>
+                        <p style="margin-top:10px"><a href="https://maps.app.goo.gl/MiboYcEnz28HF2aGA" target="_blank" rel="noopener">Map &amp; directions →</a></p>
+                    </div>
+                    <p style="color:var(--soft); font-size:15px; margin-top:4px">
+                        The two spots are just down the road from one another.
+                    </p>
                 </div>
             </div>
-            <p style="text-align:center; color:var(--soft); font-size:14px; margin-top:28px">
-                The two spots are just down the road from one another.
-            </p>
         </div>
     </section>
 
@@ -365,10 +478,10 @@
 
             <div class="day-head">Saturday</div>
             <div class="timeline">
-                <div class="event"><div class="time">2:00</div><div class="what">Arrival Reception<small>Cocktails at 4774 Fox Farm Rd</small></div></div>
-                <div class="event"><div class="time">3:00</div><div class="what">Parade Through the Woods<small>A 15-minute walk together to the beach — or drive over to Lakeland if you'd prefer</small></div></div>
-                <div class="event"><div class="time">4:00</div><div class="what">Ceremony on the Beach<small>Vows, words &amp; poetry at Lakeland</small></div></div>
-                <div class="event"><div class="time">5:00</div><div class="what">Dinner in the Pole Barn<small>From the beach to the barn for drinks, a family-style dinner &amp; toasts</small></div></div>
+                <div class="event"><div class="time">2:00</div><div class="what">Arrival Reception<small>Gathering at 4774 Fox Farm Rd</small></div></div>
+                <div class="event"><div class="time">3:00</div><div class="what">Parade Through the Woods<small>A 15-minute walk together to the beach — or drive over to Lakeland Association Beach if you'd prefer</small></div></div>
+                <div class="event"><div class="time">4:00</div><div class="what">Ceremony on the Beach</div></div>
+                <div class="event"><div class="time">5:00</div><div class="what">Dinner in the Pole Barn<small>From the beach to the boathouse for drinks, a family-style dinner &amp; toasts</small></div></div>
                 <div class="event"><div class="time">7:00</div><div class="what">Party<small>Dancing &amp; a bonfire until 9:00</small></div></div>
             </div>
         </div>
@@ -383,7 +496,7 @@
                 <div>
                     <div class="label">Accommodations</div>
                     <p>We'd encourage renting a home in the area to soak up the natural beauty of northern Michigan.</p>
-                    <p style="margin-top:6px">Prefer a hotel? We love the<br/>
+                    <p style="margin-top:6px">Prefer a hotel?<br/>
                         <a href="https://maps.app.goo.gl/DtAR6hcrK8A46bJMA" target="_blank" rel="noopener">Hampton Inn &amp; Suites Manistee Waterfront</a>.</p>
                 </div>
                 <div>
@@ -436,8 +549,8 @@
                     <div class="field">
                         <label>Will you be joining us? <span class="req">*</span></label>
                         <div class="choice">
-                            <label><input type="radio" name="attending" value="Joyfully accepts" required><span>Joyfully accept</span></label>
-                            <label><input type="radio" name="attending" value="Regretfully declines"><span>Regretfully decline</span></label>
+                            <label><input type="radio" name="attending" value="Joyfully accepts" required><span>Attending</span></label>
+                            <label><input type="radio" name="attending" value="Regretfully declines"><span>Regretfully Declined</span></label>
                         </div>
                     </div>
 
@@ -464,8 +577,8 @@
                     </div>
 
                     <div class="field">
-                        <label for="message">A note for us (optional)</label>
-                        <textarea id="message" name="message" placeholder="A song request, a memory, a hello…"></textarea>
+                        <label for="message">A note for us</label>
+                        <textarea id="message" name="message" placeholder="Optional: anything you'd like to say…"></textarea>
                     </div>
 
                     <!-- honeypot: humans never see or fill this -->
@@ -485,6 +598,7 @@
             </div>
         </div>
     </section>
+  </div><!-- /.paper -->
 
     <footer>
         Patricia <span class="amp">&amp;</span> Liam · 09 . 12 . 2026
