@@ -194,6 +194,40 @@
         }
         .detail-grid p { margin: 0 0 2px; }
 
+        .activity-list {
+            max-width: 560px;
+            margin: 0 auto;
+        }
+        .activity-group + .activity-group { margin-top: 28px; }
+        .activity-group .label {
+            font-family: var(--sans);
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 11px;
+            color: var(--accent-dark);
+            margin-bottom: 10px;
+        }
+        .activity-link {
+            display: block;
+            padding: 16px 0;
+            border-bottom: 1px dashed var(--line);
+            text-decoration: none;
+        }
+        .activity-link:last-child { border-bottom: none; }
+        .activity-link span {
+            display: block;
+            font-size: 22px;
+            line-height: 1.25;
+            color: var(--accent-dark);
+        }
+        .activity-link small {
+            display: block;
+            margin-top: 2px;
+            color: var(--soft);
+            font-size: 15px;
+        }
+        .activity-link:hover span { color: var(--accent); }
+
         /* ── Details: hand-drawn map beside the locations ─────── */
         .details-split {
             display: grid;
@@ -540,6 +574,31 @@
                         <br/>
                         <a href="https://www.grr.org/" target="_blank" rel="noopener">Gerald R. Ford (GRR)</a>.</p>
                     <p style="margin-top:6px">Parking is available on-site — sharing rides is encouraged.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ THINGS TO DO ════════════════════════════════════════ -->
+    <section id="things-to-do">
+        <div class="wrap">
+            <h2>Things to Do</h2>
+            <div class="sub">Nearby walks &amp; dunes</div>
+            <div class="activity-list">
+                <div class="activity-group">
+                    <div class="label">Hikes</div>
+                    <a class="activity-link" href="https://maps.app.goo.gl/tmcCmpGL8mnmtbyo7" target="_blank" rel="noopener">
+                        <span>Magoon Creek Natural Area</span>
+                        <small>Lake Michigan trails close to Manistee</small>
+                    </a>
+                    <a class="activity-link" href="https://maps.app.goo.gl/kjRDWxSoDV5ajCGB6" target="_blank" rel="noopener">
+                        <span>Nordhouse Dunes</span>
+                        <small>Big dunes, woods, and lakeshore</small>
+                    </a>
+                    <a class="activity-link" href="https://maps.app.goo.gl/jyyzdv7WAfyvRuPg9" target="_blank" rel="noopener">
+                        <span>The Manistee River Little Mac Suspension Bridge</span>
+                        <small>A river overlook on the North Country Trail</small>
+                    </a>
                 </div>
             </div>
         </div>
